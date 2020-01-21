@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h4> Tabel user</h4>
+<h4> Data Profile </h4>
 
 @if ($message = Session::get('message'))
 <div class="alert alert-success martop-sm">
@@ -19,22 +19,22 @@
 <th>Action</th>
 </thead>
 <tbody>
-@foreach ($user as $p)
+{{-- @foreach ($user as $p) --}}
 <tr>
-<td>{{ $p->id }}</td>
-<td>{{ $p->name }}</td>
-<td>{{ $p->email }}</td>
-<td>{{ $p->alamat }}</td>
-<td>{{ $p->password }}</td>
+<td>{{ $user->id }}</td>
+<td>{{ $user->name }}</td>
+<td>{{ $user->email }}</td>
+<td>{{ $user->alamat }}</td>
+<td>{{ $user->password }}</td>
 {{-- <td><a href="{{ route('user.show', $p->id) }}"> --}}
 {{-- {{ $p->user }}</a></td> --}}
 <td>
 
-<a href="{{ route('user.edit', $p->id) }}" class="btn btn-warning btn-sm">Ubah</a>
+<a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning btn-sm">Ubah</a>
 
 </td>
 </tr>
-@endforeach
+{{-- @endforeach --}}
 </tbody>
 </table>
 @endsection
