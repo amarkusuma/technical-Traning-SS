@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Amar;
+// use App\models\User;
+use App\User;
 
 class userController extends Controller
 {
@@ -20,7 +21,7 @@ class userController extends Controller
 
     public function index()
     {
-        $user = Amar::get();
+        $user = User::get();
 
         return view('user.index',compact('user'));
     }
@@ -65,7 +66,7 @@ class userController extends Controller
      */
     public function edit($id)
     {
-        $user = Amar::findOrFail($id);
+        $user = User::findOrFail($id);
         return view('user.edit', compact('user'));
     }
 
@@ -78,7 +79,7 @@ class userController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = Amar::findOrFail($id)->update($request->all());
+        $user = User::findOrFail($id)->update($request->all());
 
          return redirect()->route('user.index')->with('message', 'user baru berhasil diubah!');
     }

@@ -16,3 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('store', 'GuzzlePostController@store');
+Route::get('index', 'GuzzlePostController@index');
+
+Route::get('coba', 'GuzzlePostController@getRequest');
+
+Route::post('coba1', 'GuzzlePostController@postRequest');

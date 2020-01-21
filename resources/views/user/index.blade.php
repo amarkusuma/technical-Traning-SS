@@ -15,7 +15,7 @@
 <th>Nama</th>
 <th>Email</th>
 <th>Alamat</th>
-
+<th>Password</th>
 <th>Action</th>
 </thead>
 <tbody>
@@ -25,6 +25,7 @@
 <td>{{ $p->name }}</td>
 <td>{{ $p->email }}</td>
 <td>{{ $p->alamat }}</td>
+<td>{{ $p->password }}</td>
 {{-- <td><a href="{{ route('user.show', $p->id) }}"> --}}
 {{-- {{ $p->user }}</a></td> --}}
 <td>
