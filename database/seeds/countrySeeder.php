@@ -19,8 +19,6 @@ class CountrySeeder extends Seeder
         $request = json_decode($requ);
         DB::table('countries')->insert([
 
-
-
             'name' =>   $request->name ,
             'alpha2_code' =>   $request->alpha2Code,
         	'alpha3_code' =>   $request->alpha3Code,

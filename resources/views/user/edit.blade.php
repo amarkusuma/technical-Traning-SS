@@ -7,6 +7,16 @@
             <div class="card">
                 <div class="card-header">{{ __('Edit Akun') }}</div>
 
+                @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
                 <div class="card-body">
                    <form action="{{ route('user.update', $user->id) }}" method="post">
                     {{csrf_field()}}
@@ -46,8 +56,11 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('password') }}</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="password"  placeholder="password" value="">
+                                <input type="text" class="form-control" name="password"  placeholder="password" value="" required autocomplete="current-password">
 
+                            @error('title')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
 
                             </div>
                         </div>
