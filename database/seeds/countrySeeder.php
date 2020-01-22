@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use GuzzleHttp\Client;
 
 class CountrySeeder extends Seeder
 {
@@ -13,21 +14,20 @@ class CountrySeeder extends Seeder
     {
 
         // $response = $request->getBody()->getContents();
-        $client = new \GuzzleHttp\Client();
+        $client = new Client();
         $response = $client->get('https://restcountries.eu/rest/v2/all');
         $requ = $response->getBody();
         $request = json_decode($requ);
-        DB::table('countries')->insert([
 
-            'name' =>   $request->name ,
-            'alpha2_code' =>   $request->alpha2Code,
-        	'alpha3_code' =>   $request->alpha3Code,
-            'callingcodes' =>  $request->callingCodes ,
-            'demonym' =>  $request->demonym,
-            'flag' =>$request->flag,
-
-        ]);
-
-
-}
+        foreach ($request as $row) {
+            DB::table('countries')->insert([
+                'name' =>   $row->name ,
+                'alpha2_code' =>   $row->alpha2Code,
+                'alpha3_code' =>   $row->alpha3Code,
+                'calling_code' =>  $row->callingCodes[0],
+                'demonym' =>  $row->demonym,
+                'flag' =>$row->flag,
+            ]);
+        }
+    }
 }

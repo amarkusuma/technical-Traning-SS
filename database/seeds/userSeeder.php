@@ -15,18 +15,18 @@ class UserSeeder extends Seeder
     {
         // insert data ke table pegawai
         $faker = Faker\Factory::create('id_ID');
-        $gender = $faker->randomElement(['M', 'F']);
+        $gender = $faker->unique()->randomElement(['M', 'F']);
 
 
-        for($i = 1; $i <= 10; $i++){
+        for($i = 1; $i <= 3; $i++){
         DB::table('user')->insert([
-            'id' => $faker->randomDigit,
+            // 'id' => $faker->randomDigit,
             'frist_name' =>  $faker->firstNameMale ,
             'last_name' =>  $faker->lastName,
         	'email' =>  $faker->email,
             'phone_number' =>  $faker->phoneNumber ,
             'gender' =>  $gender,
-            'country_id' =>$faker->randomDigit,
+            'country_id' => rand(1,100),
         	'password' =>  $faker->password,
         ]);
     }
