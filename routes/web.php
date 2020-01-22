@@ -27,4 +27,5 @@ Route::resource('user', 'userController');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', 'ProfileController@index')->name('profile.index');
+    Route::post('update/{id}', 'ProfileController@update')->name('profile.update');
 });

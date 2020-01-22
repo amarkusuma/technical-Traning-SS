@@ -18,9 +18,9 @@
 @endif
 
                 <div class="card-body">
-                   <form action="{{ route('user.update', $user->id) }}" method="post">
+                   <form action="{{ route('profile.update', $user->id) }}" method="post">
                     {{csrf_field()}}
-                    {{ method_field('PUT') }}
+
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
