@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
 
 
         for($i = 1; $i <= 3; $i++){
-        DB::table('user')->insert([
+        DB::table('users')->insert([
             // 'id' => $faker->randomDigit,
             'frist_name' =>  $faker->firstNameMale ,
             'last_name' =>  $faker->lastName,
