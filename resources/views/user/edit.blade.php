@@ -56,7 +56,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('password') }}</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="password"  placeholder="password" value="" required autocomplete="current-password">
+                                <input type="text" class="form-control" name="password"  placeholder="password"  value="">
 
                             @error('title')
                                 <div class="alert alert-danger">{{ $message }}</div>

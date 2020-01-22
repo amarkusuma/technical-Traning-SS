@@ -66,10 +66,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        $user = User::findOrFail($id);
-        return view('user.edit', compact('user'));
+        return view('user.edit', [
+            'user' => $request->user()
+        ]);
     }
 
     /**
@@ -83,18 +84,30 @@ class UserController extends Controller
     {
         $request->validate([
 
-            'password' => 'required',
 
         ]);
 
+        if (! ($request->password)) {
+            // Do an insert (query 2)
+            \DB::table('users')->where('id',$id)->update([
+
+                'name' => $request->name,
+                'email' => $request->email,
+                'alamat' => $request->alamat,
+
+            ]);
+            return redirect()->route('user.index')->with('message', 'user berhasil diubah!');
+        }else {
+
         \DB::table('users')->where('id',$id)->update([
+
             'name' => $request->name,
             'email' => $request->email,
             'alamat' => $request->alamat,
             'password' =>  Hash::make($request->password),
         ]);
          return redirect()->route('user.index')->with('message', 'user berhasil diubah!');
-    }
+    }}
 
     /**
      * Remove the specified resource from storage.
@@ -106,4 +119,12 @@ class UserController extends Controller
     {
         //
     }
+
+    // public function editprofile(Request $request)
+    // {
+    //     return view('user.edit', [
+    //         'user' => $request->user()
+    //     ]);
+    // }
+
 }

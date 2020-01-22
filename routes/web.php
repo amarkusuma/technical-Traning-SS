@@ -24,3 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('coba/edit', 'userController@update');
 
 Route::resource('user', 'userController');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('profile', 'ProfileController@index')->name('profile.index');
+});
