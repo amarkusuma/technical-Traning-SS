@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 // use App\models\User;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Datatables;
+use Redirect,Response,DB,Config;
+use App\DataTables\UsersDataTable;
 
 class UserController extends Controller
 {
@@ -21,13 +24,19 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(UsersDataTable $dataTable)
     {
         $user = User::find(Auth::user()->id);
 
-        return view('user.index')->with(['user' => $user]);
+        return $dataTable->render('user.index')->with(['user' => $user]);
     }
 
+    public function dataTable()
+    {
+        $users = DB::table('users')->select('*');
+
+        return datatables()->of($users)->toJson();
+    }
     /**
      * Show the form for creating a new resource.
      *
