@@ -3,40 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-// use App\models\User;
-use App\User;
-use Illuminate\Support\Facades\Hash;
+use App\models\Country;
 use Datatables;
 use Redirect,Response,DB,Config;
-use App\DataTables\UsersDataTable;
 
-class UserController extends Controller
+class CountriesApiController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function __construct()
+    public function index()
     {
-        $this->middleware('auth');
+        $countries = DB::table('countries')->select('*')->Paginate(10);
+        return $countries;
+
+
     }
 
-    public function index(UsersDataTable $dataTable)
-    {
-        $user = User::find(Auth::user()->id);
 
-        return $dataTable->render('user.index')->with(['user' => $user]);
-    }
 
-    public function dataTable()
-    {
-        $users = DB::table('users')->select('*');
-
-        return datatables()->of($users)->toJson();
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -75,11 +62,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit($id)
     {
-        return view('user.edit', [
-            'user' => $request->user()
-        ]);
+        //
     }
 
     /**
@@ -91,7 +76,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        //
     }
 
     /**
@@ -104,12 +89,4 @@ class UserController extends Controller
     {
         //
     }
-
-    // public function editprofile(Request $request)
-    // {
-    //     return view('user.edit', [
-    //         'user' => $request->user()
-    //     ]);
-    // }
-
 }

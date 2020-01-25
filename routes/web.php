@@ -23,14 +23,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Route::get('coba/edit', 'userController@update');
 
-Route::resource('user', 'userController');
-Route::resource('country', 'countryController');
-Route::get('dataTable.user', 'userController@dataTable')->name('dataTable.user');
-Route::get('dataTable.country', 'countryController@dataTableCountry')->name('dataTable.country');
-Route::get('admin', 'adminController@index');
+Route::resource('user', 'UserController');
+Route::resource('country', 'CountryController');
+Route::get('dataTable.user', 'UserController@dataTable')->name('dataTable.user');
+Route::get('dataTable.country', 'CountryController@dataTableCountry')->name('dataTable.country');
+Route::get('admin', 'AdminController@index');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', 'ProfileController@index')->name('profile.index');
     Route::post('update/{id}', 'ProfileController@update')->name('profile.update');
 
 });
+
+
