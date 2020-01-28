@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\models\Country;
 use Datatables;
-use Redirect,Response,DB,Config;
+use Redirect, Response, DB, Config;
 
 class CountriesApiController extends Controller
 {
@@ -18,8 +18,6 @@ class CountriesApiController extends Controller
     {
         $countries = DB::table('countries')->select('*')->Paginate(10);
         return $countries;
-
-
     }
 
 

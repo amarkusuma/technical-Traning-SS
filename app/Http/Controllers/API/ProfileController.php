@@ -13,35 +13,27 @@ class ProfileController extends Controller
 {
     public $successStatus = 200;
 
-    public function index(){
-    //     $user =  auth('api')->user();
-    //     // $user->id;
-    //     $users = DB::table('users')
-    //     ->select('*')
-    //     ->where('users.id', $user)->get();
-    // echo dd($user);
-    // return json_encode($users);
-
-    $user = Auth::user();
-    return response()->json(['success' => $user], $this->successStatus);
-
-
+    public function index()
+    {
+        $user = Auth::user();
+        return response()->json(['success' => $user], $this->successStatus);
     }
 
-    public function update(Request $request, $user){
-        $user =  auth()->user();
-        // $user->email = $request->email;
+    public function update(Request $request)
+    {
 
-        $users = User::find($user);
-        $users->name = $request->name;
-        $users->email   = $request->email;
-        $users->alamat   = $request->alamat;
-        $users->password   = $request->password;
-        try {
-            $users->save();
-        } catch (\Illuminate\Database\QueryException $e) {
-            return "Ada kesalahan = " . $e->getMessage();
-        }
-        return "Profile sudah diubah";
+        $user = Auth::user();
+        $user->update([
+            'name' => $request->name,
+            'frist_name' => $request->frist_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'alamat' => $request->alamat,
+            'gender' => $request->gender,
+            'country_id' => $request->country_id,
+            'password' => Hash::make($request['password']),
+        ]);
+        return new UserResource($user);
     }
 }

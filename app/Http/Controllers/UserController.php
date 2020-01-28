@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Datatables;
-use Redirect,Response,DB,Config;
+use Redirect, Response, DB, Config;
 use App\DataTables\UsersDataTable;
+use App\Http\Requests\StoreBlogPost;
 
 class UserController extends Controller
 {
@@ -44,7 +45,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.create');
     }
 
     /**
@@ -53,9 +54,21 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBlogPost $request)
     {
-        //
+        User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'alamat' => $request['alamat'],
+            'password' => Hash::make($request['password']),
+            // 'frist_name' => '',
+            // 'last_name' => '',
+            // 'phone_number' => '',
+            // 'gender' => 'M',
+            // 'country_id' => '',
+
+        ]);
+        return redirect('user')->with('success', 'Selamat data berhasil ditambah!');
     }
 
     /**
@@ -91,7 +104,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-
     }
 
     /**

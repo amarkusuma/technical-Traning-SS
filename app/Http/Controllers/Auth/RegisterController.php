@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreBlogPost;
 
 class RegisterController extends Controller
 {
@@ -56,19 +57,28 @@ class RegisterController extends Controller
         ]);
     }
 
+    // public function validator(array $request)
+    // {
+    //     // $validated = $data->validated();
+    //     return Validator::make($request, [
+    //         // $request->validated()
+    //     ]);
+    // }
+
+
     /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(array  $request)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'alamat' => $data['alamat'],
-            'password' => Hash::make($data['password']),
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'alamat' => $request['alamat'],
+            'password' => Hash::make($request['password']),
             // 'frist_name' => '',
             // 'last_name' => '',
             // 'phone_number' => '',

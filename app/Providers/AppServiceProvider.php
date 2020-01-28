@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Support\ServiceProvider;
-Use Schema;
+use Schema;
+use Illuminate\Support\Facades\Blade;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(191);
+        // Schema::defaultStringLength(191);
+        // Blade::withoutDoubleEncoding();
+        // Resource::withoutWrapping();
     }
 }

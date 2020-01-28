@@ -32,7 +32,7 @@ Route::get('admin', 'AdminController@index');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', 'ProfileController@index')->name('profile.index');
     Route::post('update/{id}', 'ProfileController@update')->name('profile.update');
-
 });
 
-
+Route::get('user/create', 'UserController@create');
+Route::post('user', 'UserController@store')->name('user.create');

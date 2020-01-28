@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use DB;
+use App\Http\Resources\User as UserResource;
+use Illuminate\Support\Facades\Hash;
+
 class UsersApiController extends Controller
 {
     /**
@@ -14,7 +17,8 @@ class UsersApiController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::get();
+        return UserResource::collection($user);
     }
 
     /**
@@ -24,25 +28,37 @@ class UsersApiController extends Controller
      */
     public function create(Request $request)
     {
-        $user = new User;
-        $user->id = $request->id;
-        $user->name = $request->name;
-        $user->frist_name   = $request->frist_name;
-        $user->last_name   = $request->last_name;
-        $user->email   = $request->email;
-        $user->phone_number   = $request->phone_number;
-        $user->alamat   = $request->alamat;
-        $user->gender   = $request->gender;
-        $user->country_id   = $request->country_id;
-        $user->password   = $request->password;
+        // $user = new User;
 
-        try {
-            $user->save();
-        } catch (\Illuminate\Database\QueryException $e) {
-            return "Ada kesalahan = " . $e->getMessage();
-        }
-        return "Data sudah tersimpan";
+        // $user->name = $request->name;
+        // $user->frist_name   = $request->frist_name;
+        // $user->last_name   = $request->last_name;
+        // $user->email   = $request->email;
+        // $user->phone_number   = $request->phone_number;
+        // $user->alamat   = $request->alamat;
+        // $user->gender   = $request->gender;
+        // $user->country_id   = $request->country_id;
+        // $user->password   = $request->password;
 
+        // try {
+        //     $user->save();
+        // } catch (\Illuminate\Database\QueryException $e) {
+        //     return "Ada kesalahan = " . $e->getMessage();
+        // }
+        // return new UserResource($user);
+
+        $user = User::create([
+            'name' => $request->name,
+            'frist_name' => $request->frist_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'alamat' => $request->alamat,
+            'gender' => $request->gender,
+            'country_id' => $request->country_id,
+            'password' => Hash::make($request['password']),
+        ]);
+        return new UserResource($user);
     }
 
     /**
@@ -69,7 +85,6 @@ class UsersApiController extends Controller
             ->where('users.id', $id)->get();
 
         return json_encode($users);
-
     }
 
     /**
@@ -92,23 +107,20 @@ class UsersApiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $users = User::find($id);
-        $users->name = $request->name;
-        $users->frist_name   = $request->frist_name;
-        $users->last_name   = $request->last_name;
-        $users->email   = $request->email;
-        $users->phone_number   = $request->phone_number;
-        $users->alamat   = $request->alamat;
-        $users->gender   = $request->gender;
-        $users->country_id   = $request->country_id;
-        $users->password   = $request->password;
-        try {
-            $users->save();
-        } catch (\Illuminate\Database\QueryException $e) {
-            return "Ada kesalahan = " . $e->getMessage();
-        }
-        return "Users sudah diubah";
 
+        $user = User::find($id);
+        $user->update([
+            'name' => $request->name,
+            'frist_name' => $request->frist_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'alamat' => $request->alamat,
+            'gender' => $request->gender,
+            'country_id' => $request->country_id,
+            'password' => Hash::make($request['password']),
+        ]);
+        return new UserResource($user);
     }
 
     /**
@@ -121,6 +133,6 @@ class UsersApiController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return "User dengan id ".$id."Telah Di hapus ";
+        return "User dengan id " . $id . "Telah Di hapus ";
     }
 }
